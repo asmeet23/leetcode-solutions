@@ -1,24 +1,20 @@
 class Solution {
     public int minSwaps(String s) {
-        int n = s.length();
-
-        Stack<Character> stack = new Stack<>();
-
-        for(int i=0;i<n;i++){
-            char ch = s.charAt(i);
-
-            if(ch=='['){
-                stack.push(ch);
+        
+        int balanced = 0, imbalance = 0;
+        for(char c : s.toCharArray()){
+            if(c=='['){
+                balanced++;
+            }else{
+                balanced--;
             }
-            else{
-                if(stack.isEmpty() || stack.peek() == ']'){
-                    stack.push(ch);
-                }else{
-                    stack.pop();
-                }
+
+            if(balanced<0){
+                imbalance++;
+                balanced = 0;
             }
         }
 
-        return (int)(((stack.size())/2+1)/2);
+        return (imbalance + 1) / 2;
     }
 }
